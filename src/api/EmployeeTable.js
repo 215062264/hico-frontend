@@ -15,8 +15,8 @@ export default function EmployeeTable() {
     
     const tableHeading = [
         "Employee #",
-        "Firstname",
-        "Lastname",
+        "First Name",
+        "Last Name",
         "Salutation",
         "Profile Color"
     ];
