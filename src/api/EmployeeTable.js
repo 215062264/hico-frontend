@@ -15,7 +15,7 @@ const defaultValues = {
     lastName: "",
     salutation: "",
     gender: "",
-    employeeNumber: 0,
+    employeeNumber: "",
     salary: "",
     fullName: "",
     empProfileColor: "default",
@@ -84,7 +84,7 @@ export default function EmployeeTable() {
         let formattedData = formValues;
         let sal = formattedData.salary.trim().replace(/\s/g, '');
         formattedData.salary = parseInt(sal);
-        console.log('formattedData: ', formattedData);
+        //console.log('formattedData: ', formattedData);
        
         await axios.post(postUrl,formattedData)
         .then((response) => {
@@ -105,6 +105,7 @@ export default function EmployeeTable() {
         //format salary
         var num = clickedEmployee.salary;
         clickedEmployee.salary = numberWithSpaces(num);
+        //console.log('clickedEmployee:', clickedEmployee);
         setFormValues( clickedEmployee );
       }
 
@@ -113,7 +114,7 @@ export default function EmployeeTable() {
             <h2 style={{margin:'auto', padding:'1%'}}>Current Employees</h2>
             <Paper sx={{ width: '80%', overflow: 'hidden', margin: 'auto' }}>
             <TableContainer sx={{ maxHeight: 220 }}>
-                <Table stickyHeader aria-label="sticky table">
+                <Table stickyHeader aria-label="sticky table" sx={{ "& .MuiTableRow-root:hover": {backgroundColor: "#D3D3D3"} }}>
                     <TableHead>
                         <TableRow>
                             {tableHeading.map((head, i) => (

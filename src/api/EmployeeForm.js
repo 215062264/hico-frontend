@@ -102,20 +102,23 @@ const EmployeeForm = ({ formValues, setFormValues, handleInputChange, handleRese
               >
                 <FormControlLabel
                   key="male"
-                  value="male"
-                  control={<Radio size="small" />}
+                  name="gender"
+                  value="Male"
+                  control={<Radio required={true} size="small" />}
                   label="Male"
                 />
                 <FormControlLabel
                   key="female"
-                  value="female"
-                  control={<Radio size="small" />}
+                  name="gender"
+                  value="Female"
+                  control={<Radio required={true} size="small" />}
                   label="Female"
                 />
                 <FormControlLabel
                   key="unspecified"
-                  value="unspecified"
-                  control={<Radio size="small" />}
+                  name="gender"
+                  value="Unspecified"
+                  control={<Radio required={true} size="small" />}
                   label="Unspecified"
                 />
               </RadioGroup>
@@ -129,12 +132,16 @@ const EmployeeForm = ({ formValues, setFormValues, handleInputChange, handleRese
               id="employeeNumber-input"
               name="employeeNumber"
               label="Employee #"
-              type="number"
+              type="text"
               size="small"
               style={{ width: 400, marginBottom:'2%' }}
               required
               value={formValues.employeeNumber}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                setFormValues({
+                ...formValues,
+                employeeNumber : e.target.value.replace(/\D/g, '')
+              })}}
             />
           </div>
         </div>
@@ -175,11 +182,13 @@ const EmployeeForm = ({ formValues, setFormValues, handleInputChange, handleRese
               label="Gross Salary PY"
               size="small"
               type="text"
+              required
               style={{ width: 400, marginRight: "1%" }}
               value={formValues.salary ? formValues.salary : ""}
-              onChange={(e) => {setFormValues({
+              onChange={(e) => {
+                setFormValues({
                 ...formValues,
-                salary : e.target.value.replace(/\W/gi, '').replace(/(.{3})/g, '$1 ')
+                salary : e.target.value.replace(/\D/g, '').replace(/\W/gi, '').replace(/(.{3})/g, '$1 ')
               })}}
             />
           </div>
@@ -189,6 +198,7 @@ const EmployeeForm = ({ formValues, setFormValues, handleInputChange, handleRese
             <FormGroup
               aria-label="position"
               id="empProfileColor-input"
+              required
               row>
 
             <FormControlLabel control={<Checkbox />} checked={formValues.empProfileColor === "Green"} onChange={handleInputChange} name="empProfileColor" value="Green" label="Green" labelPlacement="end"/>
